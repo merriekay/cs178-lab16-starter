@@ -3,7 +3,7 @@
 
 import boto3
 
-sns = boto3.client('sns')
+sns = boto3.client('sns', region_name='us-east-1')
 topic_arn = 'arn:aws:sns:us-east-2:REPLACE_WITH_YOUR_TOPIC_ARN' # ← Replace with your SNS topic ARN
 
 if 'XXXXXXX' in topic_arn:
