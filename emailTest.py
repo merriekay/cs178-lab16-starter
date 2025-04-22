@@ -5,7 +5,7 @@ import boto3
 import random
 
 # Set up DynamoDB client
-dynamodb = boto3.resource('dynamodb')
+dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
 table = dynamodb.Table('Lab16Jokes')
 
 # Scan the table and select a random joke
