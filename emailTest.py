@@ -2,30 +2,22 @@
 # Description: Pull from DynamoDB + send via SNS
 
 import boto3
-import random
 
-# Set up DynamoDB client
-dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
-table = dynamodb.Table('Lab16Jokes')
+# Replace with your actual SNS Topic ARN
+topic_arn = 'arn:aws:sns:us-east-1:123456789012:JokeTopic'  # <-- Replace this!
 
-# Scan the table and select a random joke
-response = table.scan()
-items = response['Items']
-random_joke = random.choice(items)['joke']
+# Create SNS client with region specified
+sns = boto3.client('sns', region_name='us-east-1')  # <-- Replace with your region if different
 
-# Set up SNS client
-sns = boto3.client('sns', region_name='us-east-1')
-topic_arn = 'arn:aws:sns:us-east-2:REPLACE_WITH_YOUR_TOPIC_ARN' # ← Replace with your SNS topic ARN
+# Your message
+message = "Hello, world! This is a test message from SNS."
 
-if 'XXXXXXX' in topic_arn:
-    raise ValueError("Please replace the topic_arn with your own SNS Topic ARN before running the script.")
-
-
-# Send the joke via SNS
+# Send message
 response = sns.publish(
     TopicArn=topic_arn,
-    Message=random_joke,
-    Subject='Joke of the Day'
+    Message=message,
+    Subject='SNS Test'
 )
 
-print("Joke sent via SNS!")
+print("Message sent!")
+
